@@ -80,7 +80,7 @@ function bootstrapProductHeader(){
                             <a class=\"nav-link\" href=\"index.php\">Home <span class=\"sr-only\">(current)</span></a>
                         </li>     
                         <li class=\"nav-item\">
-                            <a class=\"nav-link px-2\" href=\"#\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
+                            <a class=\"nav-link px-2\" href=\"shopcart.php\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
                         </li>
         
                     </ul>
@@ -120,7 +120,7 @@ function bootstrapHeader(){
                             <a class=\"nav-link\" href=\"index.php\">Home <span class=\"sr-only\">(current)</span></a>
                         </li>      
                         <li class=\"nav-item\">
-                            <a class=\"nav-link px-2\" href=\"#\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
+                            <a class=\"nav-link px-2\" href=\"shopcart.php\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
                         </li>
         
                     </ul>

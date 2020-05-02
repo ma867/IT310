@@ -1,8 +1,8 @@
 <?php
 
+include("functions.php");
 session_start();
 
-include("functions.php");
 
 $id = $_POST["id"];
 $quantity = $_POST["quantity"];
@@ -10,9 +10,17 @@ $quantity = $_POST["quantity"];
 echo "id " . $id . " quantity " . $quantity;
 
 
-/**
- * Created by PhpStorm.
- * User: MAlzate
- * Date: 5/1/2020
- * Time: 8:12 AM
- */
+if(!isset($_SESSION['selectedProducts'][$id])){
+    $_SESSION['selectedProducts'][$id] = $quantity;
+}
+if(isset($_SESSION['selectedProducts'][$id])){
+    $_SESSION['selectedProducts'][$id] = $quantity;
+}
+if($_SESSION['selectedProducts'][$id] == 0){
+    unset($_SESSION['selectedProducts'][$id]);
+}
+
+
+print_r($_SESSION['selectedProducts']);
+
+header("Location: product.php?id=" . $id);
