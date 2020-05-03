@@ -1,37 +1,42 @@
 <?php
 session_start();
 $products_in_cart = $_SESSION['selectedProducts'];
-$products = array
-(
-    array(
-        'id' => 1,
-        'name' => 'Calculus',
-        'price' => 29.99
-    ),
-    array(
-        'id' => 2,
-        'name' => 'Chemistry',
-        'price' => 12.99
-    ),
-    array(
-        'id' => 3,
-        'name' => 'Biology',
-        'price' => 10.00
-    ),
-    array(
-        'id' => 4,
-        'name' => 'Physics',
-        'price' => 100.00
-    ),
-    array(
-        'id' => 5,
-        'name' => 'History',
-        'price' => 10.00
-    ),
-);
+
+$logindb = new mysqli("localhost", "root", "", "shoppingcart");
+if (mysqli_connect_errno()) {
+    echo "failed to connect to MYSQL:" . mysqli_connect_error();
+    exit();
+}
+else {
+
+    mysqli_select_db($logindb, "shoppingcart");
+    $products = array();
+
+    $keys = array_keys($products_in_cart);
+    for ($i = 0; $i <= sizeof($keys) - 1; $i++) {
+        $id = $keys[$i];
+        $quantity = $products_in_cart[$id];
+        $query = "select * from products where id='$id'";
+        $runQuery = mysqli_query($logindb, $query) or die(mysqli_error($logindb));
+        while ($result = mysqli_fetch_array($runQuery, MYSQLI_ASSOC)) {
+            $name = $result["name"];
+            $price = $result["price"];
+        }
+        array_push($products, array(
+            'id' => $id,
+            'name' => $name,
+            'price' => $price)
+        );
 
 
+    }
+}
 
+print_r($products);
+
+echo "\n";
+
+print_r($products_in_cart);
 
 // For testing purposes set this to true, if set to true it will use paypal sandbox
 $testmode = true;
@@ -59,7 +64,7 @@ if (isset($_POST['paypal']) && $products_in_cart && !empty($products_in_cart)) {
     }
     print_r($data);
     // Send the user to the paypal checkout screen
-  //  header('location:' . $paypalurl . '?' . http_build_query($data));
+    header('location:' . $paypalurl . '?' . http_build_query($data));
     // End the script don't need to execute anything else
     exit;
 }

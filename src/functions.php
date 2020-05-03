@@ -186,7 +186,7 @@ function bootstrapGenerateProduct($id){
                 <div class=\"card bg-light mb-3\">
                     <div class=\"card-body\">
                         <a href=\"\" data-toggle=\"modal\" data-target=\"#productModal\">
-                            <img class=\"img-fluid\" src=\"../img /";
+                            <img class=\"img-fluid\"  src=\"../img /";
         mysqli_select_db($logindb, "shoppingcart");
         $query = "select * from products where id='$id'";
         $runQuery = mysqli_query($logindb, $query) or die(mysqli_error($logindb));
@@ -435,7 +435,7 @@ function createShoppingCart($items){
                 $price = $result["price"];
                 $image = $result["img"];
             }
-            $cards .= "<tr><td><img src=\"../img/" . $image . "\" /></td><td>" .
+            $cards .= "<tr><td><img style=\"width:50px; height:50px;\" src=\"../img/" . $image . "\" /></td><td>" .
                         $name . "</td><td>In stock</td><td>" . $quantity . "</td>
                         <td class=\"text-right\">" . $price . "$</td>
                         <td class=\"text-right\"><a href=\"delete.php?id=" . $key . "\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i> </a> </td>
@@ -448,7 +448,7 @@ function createShoppingCart($items){
                         <td></td>
                         <td></td>
                         <td>Shipping</td>
-                        <td class=\"text-right\">4.90$</td>
+                        <td class=\"text-right\">0.00$</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -503,14 +503,10 @@ function shoppingcartStart(){
                 <div class=\"collapse navbar-collapse\" id=\"navbarCollapse\">
                     <ul class=\"navbar-nav mr-auto\">
                         <li class=\"nav-item active\">
-                            <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>
-                        </li>
+                            <a class=\"nav-link\" href=\"index.php\">Home <span class=\"sr-only\">(current)</span></a>
+                        </li>      
                         <li class=\"nav-item\">
-                            <a class=\"nav-link\" href=\"#\">Products</a>
-                        </li>
-        
-                        <li class=\"nav-item\">
-                            <a class=\"nav-link px-2\" href=\"#\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
+                            <a class=\"nav-link px-2\" href=\"shopcart.php\" style=\"color:white;\"><span class=\"fas fa-shopping-cart\"></span></a>
                         </li>
         
                     </ul>
@@ -551,7 +547,7 @@ function getTotal($items)
         echo "failed to connect to MYSQL:" . mysqli_connect_error();
         exit();
     } else {
-        $total = 4.90;
+        $total = 0;
         mysqli_select_db($logindb, "shoppingcart");
         $keys = array_keys($items);
         for($i=0; $i <= sizeof($keys)-1; $i++ ){
@@ -582,9 +578,7 @@ function shoppingcartEnd(){
                         <div class=\"col-sm-12  col-md-6\">
                             <button class=\"btn btn-block btn-light\">Continue Shopping</button>
                         </div>
-                        <div class=\"col-sm-12 col-md-6 text-right\">
-                            <button class=\"btn btn-lg btn-block btn-success text-uppercase\">Checkout</button>
-                        </div>
+                        
                         <div class=\"col-sm-12 col-md-6 text-right\">
                             <form action=\"paypal.php\" method=\"post\">
                                 <button class=\"btn btn-lg btn-block btn-warning\"  type=\"submit\" name=\"paypal\"><img src=\"https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png\" border=\"0\" alt=\"PayPal Logo\"></button>
@@ -683,6 +677,12 @@ function shoppingcartEnd(){
 
 ";
 }
+
+
+
+
+
+
 function loadBootstrap(){
     echo bootstrapStart() .  bootstrapHeaderAndStartMain() . bootstrapGenerateCards() . bootstrapFooter() . bootstrapEnd();
 }
