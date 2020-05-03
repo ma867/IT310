@@ -456,8 +456,7 @@ function createShoppingCart($items){
                         <td></td>
                         <td></td>
                         <td>Total</td>
-                        <td class=\"text-right\"><b>" . $total . "</b></td>
-                    </tr>" ;
+                        <td class=\"text-right\"><b>" . $total . "$</b></td></tr>" ;
         echo $cards;
 
 
@@ -568,7 +567,7 @@ function getTotal($items)
             $total += $price*$quantity;
 
         }
-        echo $total;
+        return $total;
 
     }
 }
@@ -586,6 +585,11 @@ function shoppingcartEnd(){
                         <div class=\"col-sm-12 col-md-6 text-right\">
                             <button class=\"btn btn-lg btn-block btn-success text-uppercase\">Checkout</button>
                         </div>
+                        <div class=\"col-sm-12 col-md-6 text-right\">
+                            <form action=\"paypal.php\" method=\"post\">
+                                <button class=\"btn btn-lg btn-block btn-warning\"  type=\"submit\" name=\"paypal\"><img src=\"https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png\" border=\"0\" alt=\"PayPal Logo\"></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -600,6 +604,7 @@ function shoppingcartEnd(){
         </footer>
         
         <style>
+
             .bloc_left_price {
                 color: #c01508;
                 text-align: center;
@@ -667,6 +672,7 @@ function shoppingcartEnd(){
                 line-height: 60px; /* Vertically center the text there */
                 background-color: #f5f5f5;
             }
+           
         
         </style>
         <!-- Placed at the end of the document so the pages load faster -->

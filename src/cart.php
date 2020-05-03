@@ -21,6 +21,37 @@ if($_SESSION['selectedProducts'][$id] == 0){
 }
 
 
+
 print_r($_SESSION['selectedProducts']);
+
+$products = array
+(
+    array(
+        'id' => 1,
+        'name' => 'Calculus',
+        'price' => 29.99
+    ),
+    array(
+        'id' => 2,
+        'name' => 'Chemistry',
+        'price' => 12.99
+    ),
+    array(
+        'id' => 3,
+        'name' => 'Biology',
+        'price' => 10.00
+    ),
+    array(
+        'id' => 4,
+        'name' => 'Physics',
+        'price' => 100.00
+    ),
+    array(
+        'id' => 5,
+        'name' => 'History',
+        'price' => 10.00
+    ),
+);
+
 
 header("Location: product.php?id=" . $id);
