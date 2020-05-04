@@ -9,3 +9,4 @@ session_start();
 
 $id=$_GET['id'];
 unset($_SESSION['selectedProducts'][$id]);
+header("Location: shopcart.php");
