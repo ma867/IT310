@@ -96,8 +96,8 @@ function boostrapStartMain(){
     echo "<main role=\"main\">
             <div class=\"position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light\">
                 <div class=\"col-md-5 p-lg-5 mx-auto my-5\">
-                    <h1 class=\"display-4 font-weight-normal\">Punny headline</h1>
-                    <p class=\"lead font-weight-normal\">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>
+                    <h1 class=\"display-4 font-weight-normal\">Welcome to Ubooks</h1>
+                    <p class=\"lead font-weight-normal\">books is the main source for studying looking for discount college books donated/sold to us by students just LIKE YOU! .</p>
                     <a class=\"btn btn-outline-secondary\" href=\"#\">Coming soon</a>
                 </div>
                 <div class=\"product-device box-shadow d-none d-md-block\"></div>
@@ -436,10 +436,15 @@ function createShoppingCart($items){
                 $image = $result["img"];
             }
             $cards .= "<tr><td><img style=\"width:50px; height:50px;\" src=\"../img/" . $image . "\" /></td><td>" .
-                        $name . "</td><td>In stock</td><td>" . $quantity . "</td>
+                        $name . "</td><td>In stock</td> <td><form class=\"form-inline\" action=\"update.php\" method=\"GET\">
+                        <input class=\"form-control col-sm-10\" type=\"text\" name=\"quantity\" value=\"" . $quantity . "\">
+                        <input type=\"hidden\" class=\"form-control\"  id=\"id\" name=\"id\" value=\"" . $key . "\" />
+                        <button class=\"btn btn-sm btn-success\" type=\"submit\"><i class=\"fa fa-rotate-left\"></i></button>
+                    </form></td><td>" . "</td>
                         <td class=\"text-right\">" . $price . "$</td>
                         <td class=\"text-right\"><a href=\"delete.php?id=" . $key . "\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i> </a> </td>
                     </tr>" ;
+
 
         }
         $cards .= "  <tr>
