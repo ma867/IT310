@@ -94,7 +94,7 @@ function bootstrapGenerateProduct($id){
                             </div>
                         </div>
                         <div class=\"input-group\">
-                            <input type=\"hidden\" class=\"form-control\"  id=\"id\" name=\"id\" value=\"5\" />
+                            <input type=\"hidden\" class=\"form-control\"  id=\"id\" name=\"id\" value=\"" . $id . "\" />
                         </div>
                     </div>
                     <input type=\"submit\" class=\"btn btn-outline-secondary btn-lg btn-block text-uppercase\"  value=\"Add To Cart\">
@@ -121,33 +121,8 @@ function createShoppingCart($items){
         exit();
     }
     else {
-        $total = getTotal($items);
-        $cards = "";
-        mysqli_select_db($logindb, "shoppingcart");
-        $keys = array_keys($items);
-        for($i=0; $i <= sizeof($keys)-1; $i++ ){
-            $key =  $keys[$i];
-            $quantity = $items[$key];
-            $query = "select * from products where id='$key'";
-            $runQuery = mysqli_query($logindb, $query) or die(mysqli_error($logindb));
-            while ($result = mysqli_fetch_array($runQuery, MYSQLI_ASSOC)) {
-                $name = $result["name"];
-                $price = $result["price"];
-                $image = $result["img"];
-            }
-            $cards .= "<tr><td><img style=\"width:50px; height:50px;\" src=\"../img/" . $image . "\" /></td><td>" .
-                        $name . "</td><td>In stock</td> <td><form class=\"form-inline\" action=\"update.php\" method=\"GET\">
-                        <input class=\"form-control col-sm-10\" type=\"text\" name=\"quantity\" value=\"" . $quantity . "\">
-                        <input type=\"hidden\" class=\"form-control\"  id=\"id\" name=\"id\" value=\"" . $key . "\" />
-                        <button class=\"btn btn-sm btn-success\" type=\"submit\"><i class=\"fa fa-rotate-left\"></i></button>
-                    </form></td><td>" . "</td>
-                        <td class=\"text-right\">$ " . $price . "</td>
-                        <td class=\"text-right\"><a href=\"delete.php?id=" . $key . "\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i> </a> </td>
-                    </tr>" ;
-
-
-        }
-        $cards .= "  <tr>
+        if($items == null){
+            echo "  <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -161,11 +136,54 @@ function createShoppingCart($items){
                         <td></td>
                         <td></td>
                         <td>Total</td>
-                        <td class=\"text-right\"><b>$ " . $total . "</b></td></tr>" ;
-        echo $cards;
+                        <td class=\"text-right\"><b>$ 0</b></td></tr>";
+        }
+        else {
+            $total = getTotal($items);
+            $cards = "";
+            mysqli_select_db($logindb, "shoppingcart");
+            $keys = array_keys($items);
+            for ($i = 0; $i <= sizeof($keys) - 1; $i++) {
+                $key = $keys[$i];
+                $quantity = $items[$key];
+                $query = "select * from products where id='$key'";
+                $runQuery = mysqli_query($logindb, $query) or die(mysqli_error($logindb));
+                while ($result = mysqli_fetch_array($runQuery, MYSQLI_ASSOC)) {
+                    $name = $result["name"];
+                    $price = $result["price"];
+                    $image = $result["img"];
+                }
+                $cards .= "<tr><td><img style=\"width:50px; height:50px;\" src=\"../img/" . $image . "\" /></td><td>" .
+                    $name . "</td><td>In stock</td> <td><form class=\"form-inline\" action=\"update.php\" method=\"GET\">
+                        <input class=\"form-control col-sm-10\" type=\"text\" name=\"quantity\" value=\"" . $quantity . "\">
+                        <input type=\"hidden\" class=\"form-control\"  id=\"id\" name=\"id\" value=\"" . $key . "\" />
+                        <button class=\"btn btn-sm btn-success\" type=\"submit\"><i class=\"fa fa-rotate-left\"></i></button>
+                    </form></td><td>" . "</td>
+                        <td class=\"text-right\">$ " . $price . "</td>
+                        <td class=\"text-right\"><a href=\"delete.php?id=" . $key . "\" class=\"btn btn-sm btn-danger\"><i class=\"fa fa-trash\"></i> </a> </td>
+                    </tr>";
 
 
+            }
+            $cards .= "  <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Shipping</td>
+                        <td class=\"text-right\">$ 0.00</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td class=\"text-right\"><b>$ " . $total . "</b></td></tr>";
+            echo $cards;
 
+
+        }
     }
 }
 

@@ -132,13 +132,9 @@ session_start();
     </div>
 </footer>
 
+
 <style>
-    .bloc_left_price {
-        color: #c01508;
-        text-align: center;
-        font-weight: bold;
-        font-size: 150%;
-    }
+
     .category_block li:hover {
         background-color: #007bff;
     }
@@ -161,13 +157,7 @@ session_start();
         text-decoration: line-through;
         font-size: 140%;
     }
-    .product_rassurance {
-        padding: 10px;
-        margin-top: 15px;
-        background: #ffffff;
-        border: 1px solid #6c757d;
-        color: #6c757d;
-    }
+
     .product_rassurance .list-inline {
         margin-bottom: 0;
         text-transform: uppercase;

@@ -15,4 +15,4 @@ if(isset($_SESSION['selectedProducts'][$id])){
 
 print_r($_SESSION['selectedProducts']);
 
-//header("Location: shopcart.php");
+header("Location: shopcart.php");
